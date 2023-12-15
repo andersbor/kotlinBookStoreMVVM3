@@ -18,6 +18,7 @@ class BooksRepository {
     val booksLiveData: MutableLiveData<List<Book>> = MutableLiveData<List<Book>>()
     val errorMessageLiveData: MutableLiveData<String> = MutableLiveData()
     val updateMessageLiveData: MutableLiveData<String> = MutableLiveData()
+    val reloadingLiveData: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
         //val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
@@ -32,8 +33,10 @@ class BooksRepository {
     }
 
     fun getBooks() {
+        reloadingLiveData.value = true
         bookStoreService.getAllBooks().enqueue(object : Callback<List<Book>> {
             override fun onResponse(call: Call<List<Book>>, response: Response<List<Book>>) {
+                reloadingLiveData.value = false
                 if (response.isSuccessful) {
                     //Log.d("APPLE", response.body().toString())
                     val b: List<Book>? = response.body()
@@ -48,6 +51,7 @@ class BooksRepository {
 
             override fun onFailure(call: Call<List<Book>>, t: Throwable) {
                 //booksLiveData.postValue(null)
+                reloadingLiveData.value = false
                 errorMessageLiveData.postValue(t.message)
                 Log.d("APPLE", t.message!!)
             }

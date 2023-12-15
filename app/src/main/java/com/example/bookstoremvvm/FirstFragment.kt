@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,7 +18,6 @@ import com.example.bookstoremvvm.models.MyAdapter
 class FirstFragment : Fragment() {
     private var _binding: FragmentFirstBinding? = null
     private val binding get() = _binding!!
-
     private val booksViewModel: BooksViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -30,6 +30,9 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // This fragment show the SAME data in a spinner + recyclerView.
+        // This is quite unusual and should NOT be copied.
 
         booksViewModel.booksLiveData.observe(viewLifecycleOwner) { books ->
             //Log.d("APPLE", "observer $books")
@@ -66,9 +69,13 @@ class FirstFragment : Fragment() {
             binding.swiperefresh.isRefreshing = false // TODO too early
         }
 
+        booksViewModel.reloadingLiveData.observe(viewLifecycleOwner) { isLoading ->
+            binding.swiperefresh.isRefreshing = isLoading
+        }
+
         booksViewModel.booksLiveData.observe(viewLifecycleOwner) { books ->
             val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, books)
-            binding.spinnerBooks.adapter = adapter
+            //binding.spinnerBooks.adapter = adapter
             /* binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                  override fun onItemSelected(
                      parent: AdapterView<*>?,
@@ -87,12 +94,12 @@ class FirstFragment : Fragment() {
              }*/
         }
 
-        binding.buttonShowDetails.setOnClickListener {
+        /*binding.buttonShowDetails.setOnClickListener {
             val position = binding.spinnerBooks.selectedItemPosition
             val action =
                 FirstFragmentDirections.actionFirstFragmentToSecondFragment(position)
             findNavController().navigate(action /*R.id.action_FirstFragment_to_SecondFragment*/)
-        }
+        }*/
 
         binding.buttonSort.setOnClickListener {
             when (binding.spinnerSorting.selectedItemPosition) {
@@ -103,8 +110,31 @@ class FirstFragment : Fragment() {
             }
         }
 
+        binding.searchviewFilterTitle.setOnQueryTextListener(object :
+            SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                if (query.isEmpty()) {
+                    booksViewModel.reload()
+                    return false
+                }
+                binding.searchviewFilterTitle.clearFocus()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                /*if (newText.isNullOrEmpty()) {
+                    booksViewModel.reload()
+                    return false
+                }*/
+                booksViewModel.filterByTitle(newText.trim())
+                return true
+            }
+
+        })
+
         binding.buttonFilter.setOnClickListener {
-            val title = binding.edittextFilterTitle.text.toString().trim()
+            //val title = binding.edittextFilterTitle.text.toString().trim()
+            val title = binding.searchviewFilterTitle.query.toString().trim()
             /* if (title.isBlank()) {
                  binding.edittextFilterTitle.error = "No title"
                  return@setOnClickListener

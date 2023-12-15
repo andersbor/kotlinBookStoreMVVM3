@@ -9,6 +9,7 @@ class BooksViewModel : ViewModel() {
     val booksLiveData: LiveData<List<Book>> = repository.booksLiveData
     val errorMessageLiveData: LiveData<String> = repository.errorMessageLiveData
     val updateMessageLiveData: LiveData<String> = repository.updateMessageLiveData
+    val reloadingLiveData: LiveData<Boolean> = repository.reloadingLiveData
 
     init {
         reload()

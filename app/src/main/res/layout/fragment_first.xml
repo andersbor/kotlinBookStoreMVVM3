@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,26 +10,32 @@
     <TextView
         android:id="@+id/textview_message"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
-    <LinearLayout
+    <!--LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"-->
 
-        <Spinner
-            android:id="@+id/spinner_books"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2" />
+    <!--
+     This fragment show the SAME data in a spinner + recyclerView.
+     This is quite unusual and should NOT be copied.
+    -->
 
-        <Button
-            android:id="@+id/button_show_details"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Details" />
-    </LinearLayout>
+    <!--Spinner
+        android:id="@+id/spinner_books"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2" /-->
+
+    <!--Button
+        android:id="@+id/button_show_details"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Details" /-->
+    <!--/LinearLayout-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -55,12 +62,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <EditText
+        <!--EditText
             android:id="@+id/edittext_filter_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:hint="Title" />
+            android:hint="Title" /-->
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchview_filter_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="2"
+            android:background="@drawable/thin_border_radius"
+            app:queryHint="Search by title" />
 
         <Button
             android:id="@+id/button_filter"

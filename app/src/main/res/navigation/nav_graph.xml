@@ -8,25 +8,29 @@
     <fragment
         android:id="@+id/FirstFragment"
         android:name="com.example.bookstoremvvm.FirstFragment"
-        android:label="@string/first_fragment_label"
+        android:label="Bookstore"
         tools:layout="@layout/fragment_first">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_addFragment"
+            app:destination="@id/addFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
         android:name="com.example.bookstoremvvm.SecondFragment"
-        android:label="@string/second_fragment_label"
+        android:label="Single book"
         tools:layout="@layout/fragment_second">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
 
         <argument
             android:name="position"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.example.bookstoremvvm.AddFragment"
+        android:label="Add book"
+        tools:layout="@layout/fragment_add" />
 </navigation>

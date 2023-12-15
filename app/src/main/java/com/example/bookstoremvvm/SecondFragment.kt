@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.bookstoremvvm.databinding.FragmentSecondBinding
 import com.example.bookstoremvvm.models.Book
 import com.example.bookstoremvvm.models.BooksViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class SecondFragment : Fragment() {
     private var _binding: FragmentSecondBinding? = null
@@ -56,10 +57,16 @@ class SecondFragment : Fragment() {
             //val publisher = binding.editTextPublisher.text.toString().trim()
             //val author = binding.editTextAuthor.text.toString().trim()
             val price = binding.editTextPrice.text.toString().trim().toDouble()
-            val updatedBook = Book(book.id, title,  price)
+            // TODO check if input is empty + price must be a number
+            val updatedBook = Book(book.id, title, price)
             Log.d("APPLE", "update $updatedBook")
             booksViewModel.update(updatedBook)
             findNavController().popBackStack()
+            
+        }
+
+        booksViewModel.updateMessageLiveData.observe(viewLifecycleOwner) { message ->
+            Snackbar.make(binding.layoutOuter, message, Snackbar.LENGTH_LONG).show()
         }
     }
 
