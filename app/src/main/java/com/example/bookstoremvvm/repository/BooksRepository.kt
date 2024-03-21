@@ -13,7 +13,6 @@ class BooksRepository {
     private val baseUrl = "https://anbo-restbookquerystring.azurewebsites.net/api/"
     // the specific (collection) part of the URL is on the individual methods in the interface BookstoreService
 
-    //"http://anbo-restserviceproviderbooks.azurewebsites.net/Service1.svc/"
     private val bookStoreService: BookStoreService
     val booksLiveData: MutableLiveData<List<Book>> = MutableLiveData<List<Book>>()
     val errorMessageLiveData: MutableLiveData<String> = MutableLiveData()
