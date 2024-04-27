@@ -77,12 +77,12 @@
             android:background="@drawable/thin_border_radius"
             app:queryHint="Search by title" />
 
-        <Button
+        <!--Button
             android:id="@+id/button_filter"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Filter" />
+            android:text="Filter" /-->
 
     </LinearLayout>
 

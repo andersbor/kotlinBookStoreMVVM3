@@ -129,10 +129,9 @@ class FirstFragment : Fragment() {
                 booksViewModel.filterByTitle(newText.trim())
                 return true
             }
-
         })
 
-        binding.buttonFilter.setOnClickListener {
+        /*binding.buttonFilter.setOnClickListener {
             //val title = binding.edittextFilterTitle.text.toString().trim()
             val title = binding.searchviewFilterTitle.query.toString().trim()
             /* if (title.isBlank()) {
@@ -140,7 +139,7 @@ class FirstFragment : Fragment() {
                  return@setOnClickListener
              }*/
             booksViewModel.filterByTitle(title)
-        }
+        }*/
     }
 
     override fun onDestroyView() {
