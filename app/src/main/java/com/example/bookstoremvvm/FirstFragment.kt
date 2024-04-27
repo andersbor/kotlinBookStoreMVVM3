@@ -33,9 +33,7 @@ class FirstFragment : Fragment() {
 
         // This fragment show the SAME data in a spinner + recyclerView.
         // This is quite unusual and should NOT be copied.
-
         booksViewModel.booksLiveData.observe(viewLifecycleOwner) { books ->
-            //Log.d("APPLE", "observer $books")
             binding.progressbar.visibility = View.GONE
             binding.recyclerView.visibility = if (books == null) View.GONE else View.VISIBLE
             if (books != null) {
@@ -73,10 +71,10 @@ class FirstFragment : Fragment() {
             binding.swiperefresh.isRefreshing = isLoading
         }
 
-        booksViewModel.booksLiveData.observe(viewLifecycleOwner) { books ->
+        /*booksViewModel.booksLiveData.observe(viewLifecycleOwner) { books ->
             val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, books)
             //binding.spinnerBooks.adapter = adapter
-            /* binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+             binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                  override fun onItemSelected(
                      parent: AdapterView<*>?,
                      view: View?,
@@ -91,8 +89,8 @@ class FirstFragment : Fragment() {
                  override fun onNothingSelected(parent: AdapterView<*>?) {
                      TODO("Not yet implemented")
                  }
-             }*/
-        }
+             }
+        }*/
 
         /*binding.buttonShowDetails.setOnClickListener {
             val position = binding.spinnerBooks.selectedItemPosition

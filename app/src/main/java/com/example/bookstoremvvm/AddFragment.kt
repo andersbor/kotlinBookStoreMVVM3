@@ -38,7 +38,7 @@ class AddFragment : Fragment() {
                 return@setOnClickListener
             }
             val price = priceStr.toDouble()
-            val book = Book(0, title, price)
+            val book = Book(title, price)
             booksViewModel.add(book)
             findNavController().popBackStack()
         }
@@ -47,6 +47,4 @@ class AddFragment : Fragment() {
             findNavController().popBackStack()
         }
     }
-
-
 }
